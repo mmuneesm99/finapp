@@ -1,11 +1,13 @@
 {
-  "name": "carwash",
+  "name": "tvpfinapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cp -R src/lambda netlify/functions",
+    "build:functions": "npm run clean && npm run build:lambda",
+    "clean": "rm -rf dist && rm -rf netlify/functions",
+    "postinstall": "netlify-lambda install"
   },
   "author": "",
   "license": "ISC",
