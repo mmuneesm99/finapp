@@ -1,6 +1,7 @@
 [build]
-  command = "npm install"
-  publish = "."
+  functions = "netlify"
 
-[functions]
-  directory = "netlify"
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200

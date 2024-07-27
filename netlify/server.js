@@ -7,8 +7,7 @@ const userController = require("../controllers/userController");
 const transactionController = require("../controllers/transactionController");
 const customerController = require("../controllers/customerController");
 const orderController = require("../controllers/orderController");
-const dashboardController = require("../controllers/dashboardController"); 
-const uploadHelper = require("../helpers/s3Upload");
+const dashboardController = require("../controllers/dashboardController");
 const cors = require("cors");
 const emailController = require("../controllers/emailController");
 const smsController = require("../controllers/smsController");
@@ -16,21 +15,21 @@ const serverless = require('serverless-http');
 
 require("dotenv").config();
 const app = express();
-const port = 3000;
+const port = 2000;
 
 app.use(
   cors({
     origin: "http://localhost:8080", // Replace with your frontend's origin URL
-        allowedHeaders: ["Content-Type", "Authorization"], // Add any additional headers you want to allow
+    allowedHeaders: ["Content-Type", "Authorization"], // Add any additional headers you want to allow
   })
 );
 
 app.use((req, res, next) => {
-res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-res.setHeader('Access-Control-Allow-Credentials', true);
-next();
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,6 +48,9 @@ mongoose
 
 // Routes
 // app.use(authHelpers.authenticateToken);
+app.get("/",(req,res)=>{
+  res.send("app is running")
+});
 app.post(
   "/register",
   userController.registerUser
@@ -80,9 +82,9 @@ app.post(
   transactionController.deleteTransactionById
 );
 app.post('/createCustomer', customerController.addCustomer);
-app.post('/customer/:userId',customerController.getCustomerById)
+app.post('/customer/:userId', customerController.getCustomerById)
 app.post("/dashboard-data", dashboardController.getDashBoardData);
-app.post('/send-email', emailController.sendEmail); 
+app.post('/send-email', emailController.sendEmail);
 app.post('/sendSMS', (req, res) => {
   const { to, message } = req.body;
 
@@ -95,15 +97,15 @@ app.post('/sendSMS', (req, res) => {
       console.error('Error sending message:', error);
       res.status(500).send('Failed to send message');
     });
-  });
+});
 
 
-  app.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 app.post("/get-orders", orderController.getOrders);
 app.post("/get-staff-orders", orderController.getOrderByStaffId);
 // app.post("/total-amount", orderController.getTotalAmountByPaymentType);
-app.use('/.netlify/server', app);
+app.use('/.netlify/functions/server', app);
 
 module.exports.handler = serverless(app);
