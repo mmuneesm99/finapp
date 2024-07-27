@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB using Mongoose
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect("mongodb+srv://munees:FKqh2rPzFRBlRzQR@hexpeak.cpln38x.mongodb.net/?retryWrites=true&w=majority&appName=hexpeak", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
