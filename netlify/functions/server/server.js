@@ -10,7 +10,7 @@ const orderController = require("../../../controllers/orderController");
 const dashboardController = require("../../../controllers/dashboardController");
 const cors = require("cors");
 const emailController = require("../../../controllers/emailController");
-const smsController = require("../../../controllers/smsController");
+// const smsController = require("../../../controllers/smsController");
 const serverless = require('serverless-http');
 
 require("dotenv").config();
@@ -48,7 +48,7 @@ mongoose
 
 // Routes
 // app.use(authHelpers.authenticateToken);
-app.get("/",(req,res)=>{
+app.get("/",(res)=>{
   res.send("app is running")
 });
 app.post(
@@ -85,19 +85,19 @@ app.post('/createCustomer', customerController.addCustomer);
 app.post('/customer/:userId', customerController.getCustomerById)
 app.post("/dashboard-data", dashboardController.getDashBoardData);
 app.post('/send-email', emailController.sendEmail);
-app.post('/sendSMS', (req, res) => {
-  const { to, message } = req.body;
+// app.post('/sendSMS', (req, res) => {
+//   const { to, message } = req.body;
 
-  smsController.sendSMS(to, message)
-    .then(message => {
-      console.log('Message sent! SID:', message.sid);
-      res.send('Message sent successfully!');
-    })
-    .catch(error => {
-      console.error('Error sending message:', error);
-      res.status(500).send('Failed to send message');
-    });
-});
+//   smsController.sendSMS(to, message)
+//     .then(message => {
+//       console.log('Message sent! SID:', message.sid);
+//       res.send('Message sent successfully!');
+//     })
+//     .catch(error => {
+//       console.error('Error sending message:', error);
+//       res.status(500).send('Failed to send message');
+//     });
+// });
 
 
 app.listen(port, () => {
