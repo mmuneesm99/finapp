@@ -104,6 +104,6 @@ app.post('/sendSMS', (req, res) => {
 app.post("/get-orders", orderController.getOrders);
 app.post("/get-staff-orders", orderController.getOrderByStaffId);
 // app.post("/total-amount", orderController.getTotalAmountByPaymentType);
-app.use('/.netlify/functions/server', yourRoutes);
+app.use('/.netlify/server', app);
 
 module.exports.handler = serverless(app);
