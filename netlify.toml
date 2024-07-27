@@ -1,0 +1,6 @@
+[build]
+  functions = "netlify"
+  publish = "public" # Change this if you have a different directory for static files
+
+[functions]
+  node_bundler = "esbuild"
