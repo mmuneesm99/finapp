@@ -2,15 +2,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const authHelpers = require("../helpers/auth");
-const userController = require("../controllers/userController");
-const transactionController = require("../controllers/transactionController");
-const customerController = require("../controllers/customerController");
-const orderController = require("../controllers/orderController");
-const dashboardController = require("../controllers/dashboardController");
+const authHelpers = require("../../../helpers/auth");
+const userController = require("../../../controllers/userController");
+const transactionController = require("../../../controllers/transactionController");
+const customerController = require("../../../controllers/customerController");
+const orderController = require("../../../controllers/orderController");
+const dashboardController = require("../../../controllers/dashboardController");
 const cors = require("cors");
-const emailController = require("../controllers/emailController");
-const smsController = require("../controllers/smsController");
+const emailController = require("../../../controllers/emailController");
+const smsController = require("../../../controllers/smsController");
 const serverless = require('serverless-http');
 
 require("dotenv").config();
